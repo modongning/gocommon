@@ -1,4 +1,4 @@
-module com.otoomo.gocommon
+module github.com/modongning/gocommon
 
 go 1.17
 
