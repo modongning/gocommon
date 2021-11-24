@@ -21,7 +21,7 @@ import (
 	"go.uber.org/zap/zapcore"
 )
 
-var logger *zap.SugaredLogger
+var Logger *zap.SugaredLogger
 
 /*
 InitLogger 初始化日志插件
