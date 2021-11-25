@@ -30,13 +30,20 @@ type Logger struct {
 /*
 NewLogger 初始化日志插件
 */
-func NewLogger(logFile string) *Logger {
+func NewLogger(logFile string) Logger {
 	writeSyncer := getLogWriter(logFile)
+	// 编码器
 	encoder := getEncoder()
-	core := zapcore.NewCore(encoder, writeSyncer, zapcore.DebugLevel)
-
-	return &Logger{
-		zap.New(core, zap.AddCaller()).Sugar(),
+	core := zapcore.NewCore(
+		encoder,
+		writeSyncer,
+		zapcore.DebugLevel, //日志级别
+	)
+	return Logger{
+		zap.New(
+			core,
+			zap.AddCaller(),
+		).Sugar(),
 	}
 }
 
@@ -44,9 +51,10 @@ func getLogWriter(logFile string) zapcore.WriteSyncer {
 	//加入Lumberjack支持,切割文件
 	lumberJackLogger := &lumberjack.Logger{
 		Filename:   logFile,
-		MaxSize:    1,     //在进行切割之前，日志文件的最大大小（以MB为单位）
-		MaxBackups: 5,     //保留旧文件的最大个数
-		MaxAge:     30,    //保留旧文件的最大天数
+		MaxSize:    1,  //在进行切割之前，日志文件的最大大小（以MB为单位）
+		MaxBackups: 5,  //保留旧文件的最大个数
+		MaxAge:     30, //保留旧文件的最大天数
+		LocalTime:  true,
 		Compress:   false, //是否压缩/归档旧文件
 	}
 	return zapcore.AddSync(lumberJackLogger)
