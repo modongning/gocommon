@@ -9,14 +9,13 @@ import (
     "github.com/modongning/gocommon/logger"
 )
 
-var log *logger.Logger
-
-func init() {
-	log = logger.NewLogger("./socket.log")
-}
 
 func main() {
-    log.Infof("启动服务")
+    logger.InitLogger("../test.log")
+    
+    logger.Infof("Success! statusCode = %s for URL %s", resp.Status, url)
+    logger.Errorf("Error fetching URL %s : Error = %s", url, err)
+    logger.Debugf("Trying to hit GET request for %s", url)
 }
 ```
 
@@ -24,11 +23,14 @@ func main() {
 
 ```go
 import (
-"gormUtil github.com/modongning/gocommon/gorm"
+    "github.com/modongning/gocommon/logger"
+    "gormUtil github.com/modongning/gocommon/gorm"
 )
 
 func main() {
-    mysqlConnectionPool := gormUtil.GetGormInstance(&log,"root:123456@tcp(127.0.0.1:3306)/db_name?charset=utf8&parseTime=True&loc=Local")
+    logger.InitLogger("../test.log")
+	
+    mysqlConnectionPool := gormUtil.GetGormInstance(logger,"root:123456@tcp(127.0.0.1:3306)/db_name?charset=utf8&parseTime=True&loc=Local")
     db := mysqlConnectionPool.Db
 	
     db.(*gorm.DB).Where("id=?",1)
