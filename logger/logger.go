@@ -21,17 +21,27 @@ import (
 	"go.uber.org/zap/zapcore"
 )
 
-var Logger *zap.SugaredLogger
+var logger *zap.SugaredLogger
+
+func Infof(template string, args ...interface{}) {
+	logger.Infof(template, args)
+}
+func Errorf(template string, args ...interface{}) {
+	logger.Errorf(template, args)
+}
+func Debugf(template string, args ...interface{}) {
+	logger.Debugf(template, args)
+}
 
 /*
-InitLogger 初始化日志插件
+NewLogger 初始化日志插件
 */
-func InitLogger(logFile string) {
+func NewLogger(logFile string) {
 	writeSyncer := getLogWriter(logFile)
 	encoder := getEncoder()
 	core := zapcore.NewCore(encoder, writeSyncer, zapcore.DebugLevel)
 
-	Logger = zap.New(core, zap.AddCaller()).Sugar()
+	logger = zap.New(core, zap.AddCaller()).Sugar()
 }
 
 func getLogWriter(logFile string) zapcore.WriteSyncer {
