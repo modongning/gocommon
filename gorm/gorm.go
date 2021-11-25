@@ -30,14 +30,14 @@ func GetGormInstance(log *logger2.Logger, url string) *MysqlConnectionPool {
 		panic(err.Error())
 	}
 	return &MysqlConnectionPool{
-		db:  db,
-		log: log,
+		Db:  db,
+		Log: log,
 	}
 }
 
 type MysqlConnectionPool struct {
-	db  interface{}
-	log *logger2.Logger
+	Db  interface{}
+	Log *logger2.Logger
 }
 
 func (w Writer) Printf(format string, args ...interface{}) {
