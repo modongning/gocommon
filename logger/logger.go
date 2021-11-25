@@ -6,11 +6,11 @@ Zap本身不支持切割归档日志文件
 要在zap中加入Lumberjack支持： go get -u github.com/natefinch/lumberjack
 
 使用：
-InitLogger("../test.log")
+log := NewLogger("../test.log")
 
-logger.Infof("Success! statusCode = %s for URL %s", resp.Status, url)
-logger.Errorf("Error fetching URL %s : Error = %s", url, err)
-logger.Debugf("Trying to hit GET request for %s", url)
+log.Infof("Success! statusCode = %s for URL %s", resp.Status, url)
+log.Errorf("Error fetching URL %s : Error = %s", url, err)
+log.Debugf("Trying to hit GET request for %s", url)
 */
 
 package logger
