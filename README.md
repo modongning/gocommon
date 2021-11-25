@@ -24,13 +24,12 @@ func main() {
 ```go
 import (
     "github.com/modongning/gocommon/logger"
-    "gormUtil github.com/modongning/gocommon/gorm"
 )
 
 func main() {
     logger.InitLogger("../test.log")
 	
-    mysqlConnectionPool := gormUtil.GetGormInstance(logger,"root:123456@tcp(127.0.0.1:3306)/db_name?charset=utf8&parseTime=True&loc=Local")
+    mysqlConnectionPool := gormUtil.GetGormInstance(logger.GetLogInterface(),"root:123456@tcp(127.0.0.1:3306)/db_name?charset=utf8&parseTime=True&loc=Local")
     db := mysqlConnectionPool.Db
 	
     db.(*gorm.DB).Where("id=?",1)
